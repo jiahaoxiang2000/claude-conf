@@ -1,8 +1,8 @@
-# Academic Paper Research Assistant
+# Find related Paper
 
 ## Objective
 
-Find and analyze academic papers related to the user's research context with emphasis on cryptographic literature quality and relevance.
+Find and analyze academic papers related to the user's research context $ARGUMENTS with emphasis on cryptographic literature quality and relevance.
 
 ## Systematic Research Process
 
