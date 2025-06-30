@@ -11,8 +11,6 @@ Assist with writing academic papers following rigorous academic standards and co
 ## Examples
 
 - `/wpaper abstract "We propose a new cryptographic protocol..."`
-- `/wpaper methodology "The algorithm consists of three phases..."`
-- `/wpaper review "Check this introduction for academic tone"`
 
 ## Writing Standards
 
