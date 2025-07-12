@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": ["WebFetch", "WebSearch", "Write", "Bash", "Edit", "MultiEdit"],
-    "defaultMode": "allowEdits"
+    "defaultMode": "acceptEdits"
   },
   "enableAllProjectMcpServers": true,
   "env": {},
