@@ -35,6 +35,9 @@ Specialized agents and MCP integrations for enhanced development workflows.
 | `/wpaper`          | Academic writing      | Rigorous standards, methodology descriptions      |
 | `/weekly-report`   | Progress tracking     | Weekly summary generation                         |
 
-## MCP Integration
+## MCP Servers
 
-Leverages All-in-MCP server for academic paper search, PDF processing, and standardized data models across research platforms.
+| Server | Type | Command | Purpose | Repository |
+|--------|------|---------|---------|------------|
+| `all-in-mcp` | stdio | `uv run all-in-mcp` | Academic paper search, PDF processing, research tools | [GitHub](https://github.com/jiahaoxiang2000/all-in-mcp) |
+| `github-repo-mcp` | stdio | `npx github-repo-mcp` | GitHub repository integration and management | [GitHub](https://github.com/Ryan0204/github-repo-mcp) |
