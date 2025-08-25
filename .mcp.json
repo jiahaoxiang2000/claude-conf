@@ -1,20 +1,15 @@
 {
-    "mcpServers": {
-        "all-in-mcp": {
-            "type": "stdio",
-            "command": "uv",
-            "args": [
-                "run",
-                "all-in-mcp"
-            ],
-            "env": {}
-        },
-        "github-repo-mcp": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "github-repo-mcp"
-            ]
-        }
+  "mcpServers": {
+    "all-in-mcp": {
+      "type": "stdio",
+      "command": "pipx",
+      "args": ["run", "all-in-mcp"],
+      "env": {}
+    },
+    "github-repo-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["github-repo-mcp"]
     }
+  }
 }
