@@ -37,7 +37,11 @@ Specialized agents and MCP integrations for enhanced development workflows.
 
 ## MCP Servers
 
-| Server | Type | Command | Purpose | Repository |
-|--------|------|---------|---------|------------|
-| `all-in-mcp` | stdio | `uv run all-in-mcp` | Academic paper search, PDF processing, research tools | [GitHub](https://github.com/jiahaoxiang2000/all-in-mcp) |
-| `github-repo-mcp` | stdio | `npx github-repo-mcp` | GitHub repository integration and management | [GitHub](https://github.com/Ryan0204/github-repo-mcp) |
+| Server            | Type  | Command               | Purpose                                               | Repository                                              |
+| ----------------- | ----- | --------------------- | ----------------------------------------------------- | ------------------------------------------------------- |
+| `all-in-mcp`      | stdio | `uv run all-in-mcp`   | Academic paper search, PDF processing, research tools | [GitHub](https://github.com/jiahaoxiang2000/all-in-mcp) |
+| `github-repo-mcp` | stdio | `npx github-repo-mcp` | GitHub repository integration and management          | [GitHub](https://github.com/Ryan0204/github-repo-mcp)   |
+
+## settings.json
+
+The settings.json detail see https://docs.anthropic.com/en/docs/claude-code/settings.
