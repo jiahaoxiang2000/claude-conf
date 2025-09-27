@@ -14,3 +14,11 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# global ignores for .claude
+ide/**
+plugins/**
+projects/**
+shell-snapshots/**
+statsig/**
+todos/**  
