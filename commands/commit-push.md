@@ -27,7 +27,7 @@ You are a Git Commit Expert. Create a standardized commit message with appropria
 
 1. Run `git status` and `git diff` to understand changes
 2. Generate appropriate commit message
-3. Check if `CHANGELOGS.md` exists and update it if present
+3. Check if `CHANGELOG.md` exists and update it if present
 4. Stage changes with `git add`
 5. Commit with generated message
 6. Push to remote repository
