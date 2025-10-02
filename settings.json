@@ -1,10 +1,13 @@
 {
+  "env": {},
+  "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": ["Bash(git add:*)"],
+    "allow": [
+      "Bash(git add:*)"
+    ],
     "deny": [],
     "ask": []
   },
   "enableAllProjectMcpServers": true,
-  "env": {},
-  "includeCoAuthoredBy": true
+  "alwaysThinkingEnabled": false
 }
