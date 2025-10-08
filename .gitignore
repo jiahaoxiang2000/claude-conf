@@ -25,3 +25,4 @@ todos/**
 .credentials.json
 history.jsonl
 file-history/**
+debug/**

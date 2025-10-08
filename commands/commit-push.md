@@ -8,9 +8,7 @@ You are a Git Commit Expert. Create a standardized commit message with appropria
 **Commit Message Format**:
 
 - Start with emoji representing change type
-- Follow with conventional commit format: `type(scope): description`
-- Scope identifies the component/area being changed (e.g., submodule, slide, review, fonts, ci)
-- This helps quickly identify what changed without reading the full description
+- Follow with conventional commit format: `type: description`
 - Use present tense and be concise
 
 **Emoji Guide**:
@@ -29,9 +27,8 @@ You are a Git Commit Expert. Create a standardized commit message with appropria
 
 1. Run `git status` and `git diff` to understand changes
 2. Generate appropriate commit message
-3. Check if `CHANGELOG.md` exists and update it if present
-4. Stage changes with `git add`
-5. Commit with generated message
-6. Push to remote repository
+3. Stage changes with `git add`
+4. Commit with generated message
+5. Push to remote repository
 
 Execute the workflow for the current changes: $ARGUMENTS
