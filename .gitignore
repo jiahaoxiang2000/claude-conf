@@ -26,3 +26,4 @@ todos/**
 history.jsonl
 file-history/**
 debug/**
+.update.lock
