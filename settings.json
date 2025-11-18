@@ -2,12 +2,13 @@
   "env": {},
   "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": ["Bash(git add:*)"],
+    "allow": [
+      "Bash(git add:*)"
+    ],
     "deny": [],
     "ask": []
   },
   "enableAllProjectMcpServers": true,
-  "alwaysThinkingEnabled": false,
   "hooks": {
     "PostToolUse": [
       {
@@ -20,5 +21,6 @@
         ]
       }
     ]
-  }
+  },
+  "alwaysThinkingEnabled": false
 }
