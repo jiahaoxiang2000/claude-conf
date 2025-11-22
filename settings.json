@@ -1,10 +1,8 @@
 {
-  "env": {},
+  "env": { "DISABLE_AUTOUPDATER": "1" },
   "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": [
-      "Bash(git add:*)"
-    ],
+    "allow": ["Bash(git add:*)"],
     "deny": [],
     "ask": []
   },
