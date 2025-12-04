@@ -27,3 +27,5 @@ history.jsonl
 file-history/**
 debug/**
 .update.lock
+telemetry
+plans
