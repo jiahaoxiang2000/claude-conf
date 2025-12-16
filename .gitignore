@@ -29,3 +29,4 @@ debug/**
 .update.lock
 telemetry
 plans
+stats-cache.json
