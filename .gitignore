@@ -30,3 +30,4 @@ debug/**
 telemetry
 plans
 stats-cache.json
+cache
