@@ -2,24 +2,10 @@
   "env": {},
   "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": [
-      "Bash(git add:*)"
-    ],
+    "allow": ["Bash(git add:*)"],
     "deny": [],
     "ask": []
   },
-  "enableAllProjectMcpServers": true,
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "nvim --server $NVIM --remote-expr 'execute(\"checktime\")'"
-          }
-        ]
-      }
-    ]
-  }
+  "model": "sonnet",
+  "enableAllProjectMcpServers": true
 }
