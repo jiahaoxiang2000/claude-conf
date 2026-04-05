@@ -1,5 +1,10 @@
 {
-  "env": {},
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://aiapi.xjh2000.top",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "gpt-5.4-mini"
+  },
   "includeCoAuthoredBy": true,
   "permissions": {
     "allow": [
