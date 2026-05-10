@@ -34,3 +34,6 @@ cache
 paste-cache
 backups
 /sessions
+/.last-cleanup
+/tasks/**
+/chrome
