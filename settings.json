@@ -16,5 +16,8 @@
   "tui": "default",
   "theme": "dark-daltonized",
   "editorMode": "vim",
-  "autoCompactEnabled": false
+  "autoCompactEnabled": false,
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
 }
