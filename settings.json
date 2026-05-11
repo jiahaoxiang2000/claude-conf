@@ -8,16 +8,18 @@
       "Bash(git add:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "auto"
   },
   "model": "opus",
   "enableAllProjectMcpServers": true,
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false
+  },
   "effortLevel": "high",
   "tui": "default",
   "theme": "dark-daltonized",
-  "editorMode": "vim",
+  "editorMode": "normal",
   "autoCompactEnabled": false,
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true
-  }
+  "skipAutoPermissionPrompt": true
 }
