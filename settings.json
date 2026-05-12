@@ -22,10 +22,11 @@
   "editorMode": "normal",
   "autoCompactEnabled": false,
   "skipAutoPermissionPrompt": true,
+  "preferredNotifChannel": "notifications_disabled",
   "hooks": {
     "Notification": [
       {
-        "matcher": "",
+        "matcher": "permission_prompt",
         "hooks": [
           { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh notification" }
         ]
@@ -36,6 +37,22 @@
         "matcher": "",
         "hooks": [
           { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh stop" }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh stop_failure" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh prompt_submit" }
         ]
       }
     ]
