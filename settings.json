@@ -47,14 +47,6 @@
           { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh stop_failure" }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh prompt_submit" }
-        ]
-      }
     ]
   }
 }

@@ -107,9 +107,4 @@ $snippet"
     # Pull the user back so they can react to the failure (tmux only).
     [ -n "$TMUX_PANE" ] && [ -n "$pane_win" ] && tmux select-window -t "$pane_win"
     ;;
-  prompt_submit)
-    # User just sent a new prompt — clear any stale pending marker so the
-    # @claude_pending state stays in sync even if Stop ever misses.
-    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
-    ;;
 esac
