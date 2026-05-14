@@ -1,50 +1,55 @@
 # Claude Code Configuration
 
-Specialized agents and MCP integrations for enhanced development workflows.
+Personal Claude Code configuration: slash commands, hooks, keybindings, and global settings.
 
 ## Project Structure
 
 ```
 .claude/
-├── agents/          # Specialized academic and writing assistants
-│   ├── academic-search.md
-│   ├── academic-writing.md
-│   ├── blog-writing.md
-│   ├── paper-research.md
-│   └── weekly-report-writing.md
-├── commands/        # Research and development tools
-│   ├── find-paper.md
-│   ├── search-papers.md
-│   ├── weekly-report.md
-│   └── wpaper.md
-└── settings.json    # Claude Code configuration
+├── commands/             # User-defined slash commands
+│   └── commit-message.md
+├── hooks/                # Event hook scripts
+│   └── claude-attn.sh
+├── plugins/              # Installed plugins and marketplaces
+├── keybindings.json      # Custom key bindings
+├── settings.json         # Claude Code configuration
+├── settings.local.json   # Local-only overrides (gitignored)
+└── .mcp.json             # MCP server definitions
 ```
 
-## Specialized Agents
+## Slash Commands
 
-| Agent                    | Function               | Purpose                                           |
-| ------------------------ | ---------------------- | ------------------------------------------------- |
-| `/academic-search`       | Multi-platform search  | Comprehensive paper discovery across databases    |
-| `/academic-writing`      | Academic standards     | Publication-ready prose with rigorous conventions |
-| `/blog-writing`          | Content enhancement    | Blog readability, structure, technical tutorials  |
-| `/paper-research`        | Systematic research    | Literature review with quality verification       |
-| `/weekly-report-writing` | Progress documentation | Professional reports with academic language       |
+| Command           | Purpose                                                          |
+| ----------------- | ---------------------------------------------------------------- |
+| `/commit-message` | Generate emoji + Conventional Commits messages and commit safely |
 
-## Research Commands
+## Hooks
 
-| Command          | Function          | Purpose                                      |
-| ---------------- | ----------------- | -------------------------------------------- |
-| `/search-papers` | Academic search   | Multi-platform paper discovery and metadata  |
-| `/find-paper`    | Paper retrieval   | Targeted academic paper location             |
-| `/wpaper`        | Academic writing  | Rigorous standards, methodology descriptions |
-| `/weekly-report` | Progress tracking | Weekly summary generation                    |
+`hooks/claude-attn.sh` is wired into multiple events via `settings.json` to surface attention requests via `notify-send` and tmux window markers.
+
+| Event              | Trigger                                           |
+| ------------------ | ------------------------------------------------- |
+| `Notification`     | Permission prompts (matcher: `permission_prompt`) |
+| `Stop`             | Assistant finishes a turn — clears pending marker |
+| `StopFailure`      | Assistant turn fails                              |
+| `UserPromptSubmit` | User submits a prompt                             |
+
+In tmux, the hook sets a per-window `@claude_pending` option and auto-focuses the pane when it is the only pending window.
+
+## Settings Highlights
+
+- `model`: `opus`
+- `theme`: `dark-daltonized`
+- `editorMode`: `normal`
+- `effortLevel`: `high`
+- `autoCompactEnabled`: `false`
+- `skipAutoPermissionPrompt`: `true`
+- `permissions.defaultMode`: `auto`
+- `enableAllProjectMcpServers`: `true`
+- `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+
+See https://docs.anthropic.com/en/docs/claude-code/settings for the full settings reference.
 
 ## MCP Servers
 
-| Server       | Type  | Command             | Purpose                                               | Repository                                              |
-| ------------ | ----- | ------------------- | ----------------------------------------------------- | ------------------------------------------------------- |
-| `all-in-mcp` | stdio | `uv run all-in-mcp` | Academic paper search, PDF processing, research tools | [GitHub](https://github.com/jiahaoxiang2000/all-in-mcp) |
-
-## settings.json
-
-The settings.json detail see https://docs.anthropic.com/en/docs/claude-code/settings.
+No MCP servers are currently configured in `.mcp.json`. Project-level MCP servers are auto-enabled via `enableAllProjectMcpServers`.
