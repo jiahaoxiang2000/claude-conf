@@ -37,3 +37,9 @@ backups
 /.last-cleanup
 /tasks/**
 /chrome
+/.claude/worktrees
+/daemon
+/daemon.lock
+/daemon.log
+/daemon.status.json
+/jobs

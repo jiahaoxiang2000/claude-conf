@@ -1,7 +1,11 @@
 #!/bin/sh
-# Claude Code attention hook — runs for Notification and Stop events.
-# Drives desktop notifications and tmux auto-focus directly, so no tmux
-# config is required (apart from running inside tmux at all).
+# Claude Code attention hook — runs for Notification, Stop, StopFailure,
+# and UserPromptSubmit events.
+#
+# Behavior:
+#   * notify-send fires for every event (tmux-attached AND background sessions).
+#   * tmux-specific actions (pending-window marker, auto-focus) only run when
+#     the hook fires inside a tmux pane.
 #
 # Per-window "pending" state is tracked via a custom tmux window option
 # (@claude_pending) set on Notification and cleared on Stop. Auto-focus
@@ -30,22 +34,46 @@ preview() {
 printf '%s event=%s TMUX_PANE=%s pid=%s\n' \
   "$(date '+%F %T')" "$event" "${TMUX_PANE:-<unset>}" "$$" >> "$log"
 
-[ -n "$TMUX_PANE" ] || exit 0  # nothing to do outside tmux
+# Build a notification label. In tmux, use window name + cwd basename.
+# Outside tmux (background sessions), fall back to cwd basename + short session id.
+pane_win=""
+if [ -n "$TMUX_PANE" ]; then
+  label=$(tmux display-message -p -t "$TMUX_PANE" '#W · #{b:pane_current_path}' 2>/dev/null)
+  pane_win=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}' 2>/dev/null)
+else
+  cwd=$(extract cwd)
+  sid=$(extract session_id)
+  if [ -n "$cwd" ]; then
+    label="${cwd##*/}"
+  else
+    label="claude"
+  fi
+  # append first 8 chars of session id when present
+  if [ -n "$sid" ]; then
+    short_sid=$(printf '%s' "$sid" | cut -c1-8)
+    label="$label · bg:$short_sid"
+  fi
+fi
 
-label=$(tmux display-message -p -t "$TMUX_PANE" '#W · #{b:pane_current_path}' 2>/dev/null)
-pane_win=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}' 2>/dev/null)
+# notify-send wrapper that no-ops if the binary is missing.
+notify() {
+  command -v notify-send >/dev/null 2>&1 || return 0
+  notify-send "$@"
+}
 
 case "$event" in
   notification)
     # Filtered to permission_prompt|idle_prompt by the settings.json matcher.
-    tmux set-option -w -t "$TMUX_PANE" @claude_pending 1 2>/dev/null
-    notify-send -u normal -t 10000 -a claude -i utilities-terminal \
+    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" @claude_pending 1 2>/dev/null
+    notify -u normal -t 10000 -a claude -i utilities-terminal \
       "Claude needs input" "$label"
-    pending=$(tmux list-windows -a -F '#{@claude_pending}' 2>/dev/null | grep -c '^1$')
-    [ "$pending" = 1 ] && tmux select-window -t "$pane_win"
+    if [ -n "$TMUX_PANE" ]; then
+      pending=$(tmux list-windows -a -F '#{@claude_pending}' 2>/dev/null | grep -c '^1$')
+      [ "$pending" = 1 ] && tmux select-window -t "$pane_win"
+    fi
     ;;
   stop)
-    tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
+    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
     # Stop payload has no `output`/`stop_reason` fields — pull the last
     # assistant text from the transcript JSONL instead.
     transcript=$(extract transcript_path)
@@ -67,21 +95,21 @@ case "$event" in
     body="$label"
     [ -n "$snippet" ] && body="$body
 $snippet"
-    notify-send -u normal -t 10000 -a claude -i utilities-terminal \
+    notify -u normal -t 10000 -a claude -i utilities-terminal \
       "Claude Idea" "$body"
     ;;
   stop_failure)
-    tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
+    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
     err_type=$(extract error_type)
     err_msg=$(extract error_message)
-    notify-send -u critical -a claude -i dialog-error \
+    notify -u critical -a claude -i dialog-error \
       "Claude error: ${err_type:-unknown}" "${err_msg:-$label}"
-    # Pull the user back so they can react to the failure.
-    tmux select-window -t "$pane_win"
+    # Pull the user back so they can react to the failure (tmux only).
+    [ -n "$TMUX_PANE" ] && [ -n "$pane_win" ] && tmux select-window -t "$pane_win"
     ;;
   prompt_submit)
     # User just sent a new prompt — clear any stale pending marker so the
     # @claude_pending state stays in sync even if Stop ever misses.
-    tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
+    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
     ;;
 esac
