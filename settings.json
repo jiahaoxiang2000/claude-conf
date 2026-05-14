@@ -17,7 +17,7 @@
     "superpowers@claude-plugins-official": false
   },
   "effortLevel": "high",
-  "tui": "default",
+  "tui": "fullscreen",
   "theme": "dark-daltonized",
   "editorMode": "normal",
   "autoCompactEnabled": false,
