@@ -1,16 +1,6 @@
 #!/bin/sh
-# Claude Code attention hook — runs for Notification, Stop, StopFailure,
-# and UserPromptSubmit events.
-#
-# Behavior:
-#   * notify-send fires for every event (tmux-attached AND background sessions).
-#   * tmux-specific actions (pending-window marker, auto-focus) only run when
-#     the hook fires inside a tmux pane.
-#
-# Per-window "pending" state is tracked via a custom tmux window option
-# (@claude_pending) set on Notification and cleared on Stop. Auto-focus
-# only happens when this is the *only* pending window, to avoid two
-# simultaneous notifications ping-ponging focus between their panes.
+# Claude Code attention hook — runs for Notification, Stop, and StopFailure
+# events. Fires notify-send for every event.
 
 event="${1:-}"
 log=/tmp/claude-attn.log
@@ -31,28 +21,20 @@ preview() {
   printf '%s' "$1" | tr '\n' ' ' | tr -s ' ' | sed 's/^ //; s/ $//' | cut -c1-"${2:-140}"
 }
 
-printf '%s event=%s TMUX_PANE=%s pid=%s\n' \
-  "$(date '+%F %T')" "$event" "${TMUX_PANE:-<unset>}" "$$" >> "$log"
+printf '%s event=%s pid=%s\n' \
+  "$(date '+%F %T')" "$event" "$$" >> "$log"
 
-# Build a notification label. In tmux, use window name + cwd basename.
-# Outside tmux (background sessions), fall back to cwd basename + short session id.
-pane_win=""
-if [ -n "$TMUX_PANE" ]; then
-  label=$(tmux display-message -p -t "$TMUX_PANE" '#W · #{b:pane_current_path}' 2>/dev/null)
-  pane_win=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}' 2>/dev/null)
+# Build a notification label from cwd basename + short session id.
+cwd=$(extract cwd)
+sid=$(extract session_id)
+if [ -n "$cwd" ]; then
+  label="${cwd##*/}"
 else
-  cwd=$(extract cwd)
-  sid=$(extract session_id)
-  if [ -n "$cwd" ]; then
-    label="${cwd##*/}"
-  else
-    label="claude"
-  fi
-  # append first 8 chars of session id when present
-  if [ -n "$sid" ]; then
-    short_sid=$(printf '%s' "$sid" | cut -c1-8)
-    label="$label · bg:$short_sid"
-  fi
+  label="claude"
+fi
+if [ -n "$sid" ]; then
+  short_sid=$(printf '%s' "$sid" | cut -c1-8)
+  label="$label · bg:$short_sid"
 fi
 
 # notify-send wrapper that no-ops if the binary is missing.
@@ -63,17 +45,10 @@ notify() {
 
 case "$event" in
   notification)
-    # Filtered to permission_prompt|idle_prompt by the settings.json matcher.
-    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" @claude_pending 1 2>/dev/null
     notify -u normal -t 10000 -a claude -i utilities-terminal \
       "Claude needs input" "$label"
-    if [ -n "$TMUX_PANE" ]; then
-      pending=$(tmux list-windows -a -F '#{@claude_pending}' 2>/dev/null | grep -c '^1$')
-      [ "$pending" = 1 ] && tmux select-window -t "$pane_win"
-    fi
     ;;
   stop)
-    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
     # Stop payload has no `output`/`stop_reason` fields — pull the last
     # assistant text from the transcript JSONL instead.
     transcript=$(extract transcript_path)
@@ -99,12 +74,9 @@ $snippet"
       "Claude Idea" "$body"
     ;;
   stop_failure)
-    [ -n "$TMUX_PANE" ] && tmux set-option -w -t "$TMUX_PANE" -u @claude_pending 2>/dev/null
     err_type=$(extract error_type)
     err_msg=$(extract error_message)
     notify -u critical -a claude -i dialog-error \
       "Claude error: ${err_type:-unknown}" "${err_msg:-$label}"
-    # Pull the user back so they can react to the failure (tmux only).
-    [ -n "$TMUX_PANE" ] && [ -n "$pane_win" ] && tmux select-window -t "$pane_win"
     ;;
 esac
