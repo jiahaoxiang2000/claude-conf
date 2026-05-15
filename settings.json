@@ -13,22 +13,15 @@
   },
   "model": "opus",
   "enableAllProjectMcpServers": true,
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": false
-  },
-  "effortLevel": "high",
-  "tui": "fullscreen",
-  "theme": "dark-daltonized",
-  "editorMode": "normal",
-  "autoCompactEnabled": false,
-  "skipAutoPermissionPrompt": true,
-  "preferredNotifChannel": "notifications_disabled",
   "hooks": {
     "Notification": [
       {
         "matcher": "permission_prompt",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh notification" }
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/claude-attn.sh notification"
+          }
         ]
       }
     ],
@@ -36,7 +29,10 @@
       {
         "matcher": "",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh stop" }
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/claude-attn.sh stop"
+          }
         ]
       }
     ],
@@ -44,9 +40,31 @@
       {
         "matcher": "",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/claude-attn.sh stop_failure" }
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/claude-attn.sh stop_failure"
+          }
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false
+  },
+  "extraKnownMarketplaces": {
+    "apaper": {
+      "source": {
+        "source": "github",
+        "repo": "ai4paper/apaper-plugin"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "theme": "dark-daltonized",
+  "editorMode": "normal",
+  "verbose": true,
+  "preferredNotifChannel": "notifications_disabled",
+  "autoCompactEnabled": false,
+  "skipAutoPermissionPrompt": true
 }
