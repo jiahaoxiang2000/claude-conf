@@ -44,3 +44,4 @@ backups
 /daemon.status.json
 /jobs
 /image-cache/
+/.last-update-result.json
