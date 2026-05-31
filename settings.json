@@ -59,8 +59,8 @@
       }
     }
   },
-  "effortLevel": "high",
-  "tui": "fullscreen",
+  "effortLevel": "xhigh",
+  "tui": "default",
   "theme": "dark-daltonized",
   "editorMode": "normal",
   "verbose": true,
