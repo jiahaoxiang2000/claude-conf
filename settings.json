@@ -57,6 +57,12 @@
         "source": "github",
         "repo": "ai4paper/apaper-plugin"
       }
+    },
+    "academic-research-skills": {
+      "source": {
+        "source": "github",
+        "repo": "Imbad0202/academic-research-skills"
+      }
     }
   },
   "effortLevel": "xhigh",
