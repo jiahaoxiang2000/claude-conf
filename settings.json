@@ -12,8 +12,6 @@
     "defaultMode": "auto"
   },
   "model": "opus",
-  "effortLevel": "xhigh",
-  "ultracode": true,
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -70,7 +68,9 @@
       }
     }
   },
-  "tui": "default",
+  "effortLevel": "xhigh",
+  "ultracode": true,
+  "tui": "fullscreen",
   "theme": "dark-daltonized",
   "editorMode": "normal",
   "verbose": true,
