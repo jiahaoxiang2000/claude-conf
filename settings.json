@@ -12,6 +12,8 @@
     "defaultMode": "auto"
   },
   "model": "opus",
+  "effortLevel": "xhigh",
+  "ultracode": true,
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -48,9 +50,6 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": false
-  },
   "extraKnownMarketplaces": {
     "apaper": {
       "source": {
@@ -71,7 +70,6 @@
       }
     }
   },
-  "effortLevel": "xhigh",
   "tui": "default",
   "theme": "dark-daltonized",
   "editorMode": "normal",
