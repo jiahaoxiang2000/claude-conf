@@ -11,7 +11,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -69,7 +69,6 @@
     }
   },
   "effortLevel": "xhigh",
-  "ultracode": true,
   "tui": "fullscreen",
   "theme": "dark-daltonized",
   "editorMode": "normal",
