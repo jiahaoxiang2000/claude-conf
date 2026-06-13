@@ -45,3 +45,4 @@ backups
 /jobs
 /image-cache/
 /.last-update-result.json
+/teams
