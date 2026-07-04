@@ -11,7 +11,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -76,5 +76,9 @@
   "verbose": true,
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
-  "skipAutoPermissionPrompt": true
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true
+  }
 }
