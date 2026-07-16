@@ -11,7 +11,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -48,6 +48,9 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true
+  },
   "extraKnownMarketplaces": {
     "apaper": {
       "source": {
@@ -77,8 +80,5 @@
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "enabledPlugins": {
-    "clangd-lsp@claude-plugins-official": true
-  }
+  "skipAutoPermissionPrompt": true
 }
